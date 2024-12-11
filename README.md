@@ -1,3 +1,5 @@
+[![PHP](https://custom-icon-badges.herokuapp.com/badge/PHP-4F5D95.svg?logo=PHP&logoColor=white)](https://unlicense.org/)
+
 # jidaikobo/log
 
 `jidaikobo/log` is a simple and flexible logging utility that adheres to the PSR-3 (Logger Interface) standard. It provides both instance-based and static methods for logging, making it easy to integrate into any PHP project.

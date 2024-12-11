@@ -27,12 +27,17 @@ class Log
      * @param int $maxFileSize
      * @return void
      */
-    public static function init(string $logFile = __DIR__ . '/../logs/php.log', int $maxFileSize = 10 * 1024 * 1024): void
+    public static function init(string $logFile = null, int $maxFileSize = 10 * 1024 * 1024): void
     {
+        if ($logFile === null) {
+            $logFile = dirname(__DIR__, 4) . '/logs/php.log'; // default project root
+        }
+
         $logDir = dirname($logFile);
         if (!is_dir($logDir)) {
             mkdir($logDir, 0777, true);
         }
+
         self::$instance = new LogPsr3($logFile, $maxFileSize);
     }
 
