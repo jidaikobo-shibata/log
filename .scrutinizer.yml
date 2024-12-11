@@ -1,0 +1,28 @@
+# .scrutinizer.yml
+build:
+    environment:
+        php:
+            version: "8.1"
+
+tools:
+    php_analyzer:
+        enabled: true
+    php_code_sniffer:
+        enabled: true
+        config:
+            standard: PSR12
+    php_cpd:
+        enabled: true
+    php_mess_detector:
+        enabled: true
+
+filter:
+    paths:
+        - src/
+    excluded_paths:
+        - tests/
+        - vendor/
+
+tests:
+    override:
+        - phpunit --coverage-clover=coverage.xml
