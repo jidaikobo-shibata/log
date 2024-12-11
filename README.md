@@ -1,4 +1,4 @@
-[![PHP](https://custom-icon-badges.herokuapp.com/badge/PHP-4F5D95.svg?logo=PHP&logoColor=white)](https://unlicense.org/)
+[![Unlicense](https://custom-icon-badges.herokuapp.com/badge/license-Unlicense-8BB80A.svg?logo=law&logoColor=white)](https://unlicense.org/) [![Build Status](https://scrutinizer-ci.com/g/jidaikobo-shibata/log/badges/build.png?b=main)](https://scrutinizer-ci.com/g/jidaikobo-shibata/log/build-status/main)
 
 # jidaikobo/log
 

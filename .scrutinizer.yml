@@ -1,5 +1,10 @@
 # .scrutinizer.yml
 build:
+  nodes:
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
     environment:
         php:
             version: "8.1"
