@@ -1,0 +1,43 @@
+name: CI for jidaikobo/log
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['7.4', '8.0', '8.1', '8.2']
+
+    steps:
+      # Set up the environment
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, json
+          coverage: none
+
+      # Install dependencies
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      # Run static analysis (optional)
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse
+        continue-on-error: true
+
+      # Run tests
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit --coverage-text
