@@ -20,9 +20,4 @@ filter:
     paths:
         - src/
     excluded_paths:
-        - tests/
         - vendor/
-
-tests:
-    override:
-        - phpunit --coverage-clover=coverage.xml
