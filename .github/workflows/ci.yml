@@ -27,6 +27,11 @@ jobs:
       - name: Install dependencies
         run: composer install --no-progress --no-suggest
 
+      - name: Install PHPCompatibility for PHP_CodeSniffer
+        run: |
+          git clone https://github.com/PHPCompatibility/PHPCompatibility.git
+          ./vendor/bin/phpcs --config-set installed_paths ./PHPCompatibility
+
       - name: Check PHP Compatibility
         run: ./vendor/bin/phpcs --standard=PHPCompatibility --runtime-set testVersion ${{ matrix.php-version }} ./src
 
@@ -34,4 +39,4 @@ jobs:
         run: ./vendor/bin/phpcs --standard=PSR12 ./src
 
       - name: Run PHPStan
-        run: ./vendor/bin/phpstan analyse --level=7
+        run: ./vendor/bin/phpstan analyse --level=8
