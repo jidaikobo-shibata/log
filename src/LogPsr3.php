@@ -1,11 +1,5 @@
 <?php
 
-namespace jidaikobo;
-
-use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
-use InvalidArgumentException;
-
 /**
  * LogPsr3 class
  *
@@ -14,15 +8,32 @@ use InvalidArgumentException;
  * This class adheres to PSR-1 and PSR-12 coding standards and implements
  * PSR-3 (Logger Interface) for compatibility with PSR-3 consumers.
  *
- * @package   jidaikobo/log
- * @author    jidaikobo-shibata
- * @license   Unlicense
+ * @category Utility
+ * @package  jidaikobo/log
+ * @author   jidaikobo-shibata <shibata@jidaikobo.com>
+ * @license  Unlicense <https://unlicense.org/>
+ * @link     https://github.com/jidaikobo-shibata/log
  */
+
+namespace jidaikobo;
+
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
+use InvalidArgumentException;
+
 class LogPsr3 implements LoggerInterface
 {
     private string $logFile;
     private int $maxFileSize;
 
+    /**
+     * Determine the location of the log file and the size at which the log should be rotated.
+     *
+     * @param string $logFile     path of log file
+     * @param int    $maxFileSize log rotation size
+     *
+     * @return void
+     */
     public function __construct(string $logFile, int $maxFileSize)
     {
         $this->logFile = $logFile;
@@ -31,6 +42,8 @@ class LogPsr3 implements LoggerInterface
 
     /**
      * Register error and exception handlers.
+     *
+     * @return void
      */
     public function registerHandlers(): void
     {
@@ -41,10 +54,11 @@ class LogPsr3 implements LoggerInterface
     /**
      * Handle PHP errors and log them.
      *
-     * @param int $errno The level of the error raised.
-     * @param string $errstr The error message.
+     * @param int    $errno   The level of the error raised.
+     * @param string $errstr  The error message.
      * @param string $errfile The filename that the error was raised in.
-     * @param int $errline The line number the error was raised at.
+     * @param int    $errline The line number the error was raised at.
+     *
      * @return bool Always returns false to allow PHP's default error handler.
      */
     public function errorHandler(int $errno, string $errstr, string $errfile, int $errline): bool
@@ -58,15 +72,23 @@ class LogPsr3 implements LoggerInterface
      * Handle uncaught exceptions and log them.
      *
      * @param \Throwable $exception The uncaught exception.
+     *
+     * @return void
      */
     public function exceptionHandler(\Throwable $exception): void
     {
-        $errorMessage = "Uncaught Exception: {$exception->getMessage()} in {$exception->getFile()} on line {$exception->getLine()}";
-        $this->write($errorMessage, 'ERROR');
+        $errorMessage = sprintf(
+            "Uncaught Exception: %s in %s on line %d",
+            $exception->getMessage(),
+            $exception->getFile(),
+            $exception->getLine()
+        );
     }
 
     /**
      * Rotate the log file if it exceeds the maximum size.
+     *
+     * @return void
      */
     private function rotateLogFile(): void
     {
@@ -78,11 +100,12 @@ class LogPsr3 implements LoggerInterface
     /**
      * Write a message to the log file.
      *
-     * @param string|array $message The message to log.
-     * @param string $level The log level (e.g., INFO, WARNING, DEBUG, ERROR).
+     * @param string|array<string|int, string>|object $message The message to log.
+     * @param string                                  $level   The log level.
+     *
      * @return void
      */
-    public function write(string|array $message, string $level = 'INFO'): void
+    public function write(string|array|object $message, string $level = 'INFO'): void
     {
         $this->rotateLogFile();
 
@@ -94,7 +117,11 @@ class LogPsr3 implements LoggerInterface
 
         // Format the message
         if (is_object($message)) {
-            $message = method_exists($message, '__toString') ? (string) $message : json_encode($message, JSON_PRETTY_PRINT);
+            if (method_exists($message, '__toString')) {
+                $message = (string) $message;
+            } else {
+                $message = json_encode($message, JSON_PRETTY_PRINT);
+            }
         } elseif (is_array($message)) {
             $message = var_export($message, true);
         }
@@ -108,9 +135,10 @@ class LogPsr3 implements LoggerInterface
     /**
      * Logs with an arbitrary level.
      *
-     * @param mixed $level The log level.
-     * @param string|\Stringable $message The log message.
-     * @param array $context Context array.
+     * @param mixed                $level   The log level.
+     * @param string|\Stringable   $message The log message.
+     * @param array<string, mixed> $context Context array.
+     *
      * @return void
      */
     public function log($level, $message, array $context = []): void
@@ -123,51 +151,118 @@ class LogPsr3 implements LoggerInterface
         $this->write($message, strtoupper($level));
     }
 
+    /**
+     * Logs a emergency message.
+     *
+     * @param string $message               The message to log.
+     * @param array<string, mixed> $context Additional context for the log message.
+     *
+     * @return void
+     */
     public function emergency($message, array $context = []): void
     {
         $this->log(LogLevel::EMERGENCY, $message, $context);
     }
 
+    /**
+     * Logs a alert message.
+     *
+     * @param string $message               The message to log.
+     * @param array<string, mixed> $context Additional context for the log message.
+     *
+     * @return void
+     */
     public function alert($message, array $context = []): void
     {
         $this->log(LogLevel::ALERT, $message, $context);
     }
 
+    /**
+     * Logs a critical message.
+     *
+     * @param string $message               The message to log.
+     * @param array<string, mixed> $context Additional context for the log message.
+     *
+     * @return void
+     */
     public function critical($message, array $context = []): void
     {
         $this->log(LogLevel::CRITICAL, $message, $context);
     }
 
+    /**
+     * Logs a error message.
+     *
+     * @param string $message               The message to log.
+     * @param array<string, mixed> $context Additional context for the log message.
+     *
+     * @return void
+     */
     public function error($message, array $context = []): void
     {
         $this->log(LogLevel::ERROR, $message, $context);
     }
 
+    /**
+     * Logs a warning message.
+     *
+     * @param string $message               The message to log.
+     * @param array<string, mixed> $context Additional context for the log message.
+     *
+     * @return void
+     */
     public function warning($message, array $context = []): void
     {
         $this->log(LogLevel::WARNING, $message, $context);
     }
 
+    /**
+     * Logs a notice message.
+     *
+     * @param string $message               The message to log.
+     * @param array<string, mixed> $context Additional context for the log message.
+     *
+     * @return void
+     */
     public function notice($message, array $context = []): void
     {
         $this->log(LogLevel::NOTICE, $message, $context);
     }
 
+    /**
+     * Logs a info message.
+     *
+     * @param string $message               The message to log.
+     * @param array<string, mixed> $context Additional context for the log message.
+     *
+     * @return void
+     */
     public function info($message, array $context = []): void
     {
         $this->log(LogLevel::INFO, $message, $context);
     }
 
+    /**
+     * Logs a debug message.
+     *
+     * @param string $message               The message to log.
+     * @param array<string, mixed> $context Additional context for the log message.
+     *
+     * @return void
+     */
     public function debug($message, array $context = []): void
     {
         $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-        $traceInfo = array_map(function ($trace) {
-            $file = $trace['file'] ?? '[internal function]';
-            $line = $trace['line'] ?? '?';
-            $function = $trace['function'] ?? '?';
-            $class = $trace['class'] ?? '';
-            return "$file:$line - {$class}{$function}()";
-        }, $backtrace);
+        $traceInfo = array_map(
+            function ($trace) {
+                $file = $trace['file'] ?? '[internal function]';
+                $line = $trace['line'] ?? '?';
+                $function = $trace['function'];
+                $class = $trace['class'] ?? '';
+                return "$file:$line - {$class}{$function}()";
+            },
+            $backtrace
+        );
 
         $message .= "\nTrace:\n" . implode("\n", $traceInfo);
 
@@ -177,8 +272,9 @@ class LogPsr3 implements LoggerInterface
     /**
      * Interpolates context values into the message placeholders.
      *
-     * @param string $message The message with placeholders.
-     * @param array $context The context array.
+     * @param string $message               The message with placeholders.
+     * @param array<string, mixed> $context The context array.
+     *
      * @return string The interpolated message.
      */
     private function interpolate(string $message, array $context): string

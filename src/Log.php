@@ -1,9 +1,5 @@
 <?php
 
-namespace jidaikobo;
-
-use jidaikobo\LogPsr3;
-
 /**
  * Log class (Static Wrapper for LogPsr3)
  *
@@ -12,10 +8,17 @@ use jidaikobo\LogPsr3;
  * This class allows developers to use logging functionality via static
  * methods while maintaining the flexibility of the LogPsr3 instance-based design.
  *
- * @package   jidaikobo/log
- * @author    jidaikobo-shibata
- * @license   Unlicense
+ * @category Utility
+ * @package  jidaikobo/log
+ * @author   jidaikobo-shibata <shibata@jidaikobo.com>
+ * @license  Unlicense <https://unlicense.org/>
+ * @link     https://github.com/jidaikobo-shibata/log
  */
+
+namespace jidaikobo;
+
+use jidaikobo\LogPsr3;
+
 class Log
 {
     private static ?LogPsr3 $instance = null;
@@ -23,8 +26,9 @@ class Log
     /**
      * Initialize the Logger instance.
      *
-     * @param string $logFile
-     * @param int $maxFileSize
+     * @param string $logFile     path of log file
+     * @param int    $maxFileSize log rotation size
+     *
      * @return void
      */
     public static function init(string $logFile = null, int $maxFileSize = 10 * 1024 * 1024): void
@@ -59,8 +63,9 @@ class Log
     /**
      * Forward static calls to the Logger instance.
      *
-     * @param string $method
-     * @param array $args
+     * @param string            $method called method name
+     * @param array<int, mixed> $args   arguments
+     *
      * @return mixed
      */
     public static function __callStatic(string $method, array $args)
@@ -69,7 +74,12 @@ class Log
 
         if (!method_exists($instance, $method)) {
             $availableMethods = implode(', ', get_class_methods($instance));
-            throw new \BadMethodCallException("Method '{$method}' does not exist on LogPsr3. Available methods: {$availableMethods}");
+            $message = sprintf(
+                "Method '%s' does not exist on LogPsr3. Available methods: %s",
+                $method,
+                $availableMethods
+            );
+            throw new \BadMethodCallException($message);
         }
 
         return $instance->$method(...$args);
