@@ -2,3 +2,4 @@
 /composer.lock
 /logs/
 /public/
+phpcs.xml
