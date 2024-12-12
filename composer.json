@@ -16,7 +16,7 @@
     "license": "Unlicense",
     "require": {
         "php": ">=7.4",
-        "psr/log": "^3.0 || ^4.0"
+        "psr/log": "^1.0 || ^2.0 || ^3.0 || ^4.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^2.0",
