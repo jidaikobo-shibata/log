@@ -83,6 +83,7 @@ class LogPsr3 implements LoggerInterface
             $exception->getFile(),
             $exception->getLine()
         );
+        $this->write($errorMessage, 'ERROR');
     }
 
     /**
@@ -100,12 +101,12 @@ class LogPsr3 implements LoggerInterface
     /**
      * Write a message to the log file.
      *
-     * @param string|array<string|int, string>|object $message The message to log.
-     * @param string                                  $level   The log level.
+     * @param string|array<string|int, string> $message The message to log.
+     * @param string                           $level   The log level.
      *
      * @return void
      */
-    public function write(string|array|object $message, string $level = 'INFO'): void
+    public function write(string|array $message, string $level = 'INFO'): void
     {
         $this->rotateLogFile();
 
@@ -116,13 +117,7 @@ class LogPsr3 implements LoggerInterface
         }
 
         // Format the message
-        if (is_object($message)) {
-            if (method_exists($message, '__toString')) {
-                $message = (string) $message;
-            } else {
-                $message = json_encode($message, JSON_PRETTY_PRINT);
-            }
-        } elseif (is_array($message)) {
+        if (is_array($message)) {
             $message = var_export($message, true);
         }
 

@@ -55,6 +55,10 @@ class Log
     {
         if (!self::$instance) {
             self::init();
+
+            if (!self::$instance) {
+                throw new \RuntimeException('Logger instance is not initialized.');
+            }
         }
 
         return self::$instance;
