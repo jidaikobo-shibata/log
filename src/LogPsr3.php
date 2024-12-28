@@ -15,7 +15,7 @@
  * @link     https://github.com/jidaikobo-shibata/log
  */
 
-namespace jidaikobo;
+namespace Jidaikobo;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;

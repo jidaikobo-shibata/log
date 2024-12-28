@@ -15,9 +15,9 @@
  * @link     https://github.com/jidaikobo-shibata/log
  */
 
-namespace jidaikobo;
+namespace Jidaikobo;
 
-use jidaikobo\LogPsr3;
+use Jidaikobo\LogPsr3;
 
 class Log
 {
