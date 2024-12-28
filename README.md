@@ -1,4 +1,4 @@
-[![Unlicense](https://custom-icon-badges.herokuapp.com/badge/license-Unlicense-8BB80A.svg?logo=law&logoColor=white)](https://unlicense.org/) [![Build Status](https://scrutinizer-ci.com/g/jidaikobo-shibata/log/badges/build.png?b=main)](https://scrutinizer-ci.com/g/jidaikobo-shibata/log/build-status/main) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jidaikobo-shibata/log/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/jidaikobo-shibata/log/?branch=main)
+[![MIT](https://custom-icon-badges.herokuapp.com/badge/license-MIT-8BB80A.svg?logo=law&logoColor=white)](https://github.com/jidaikobo-shibata/log/tree/main?tab=MIT-1-ov-file)  [![Build Status](https://scrutinizer-ci.com/g/jidaikobo-shibata/log/badges/build.png?b=main)](https://scrutinizer-ci.com/g/jidaikobo-shibata/log/build-status/main) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jidaikobo-shibata/log/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/jidaikobo-shibata/log/?branch=main)
 
 # jidaikobo/log
 
