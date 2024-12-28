@@ -75,3 +75,5 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 ## Link
 
 - [PSR-3: Logger Interface](https://www.php-fig.org/psr/psr-3/)
+- [jidaikobo/log - Packagist](https://packagist.org/packages/jidaikobo/log)
+- [jidaikobo-shibata/log - GitHub](https://github.com/jidaikobo-shibata/log)
