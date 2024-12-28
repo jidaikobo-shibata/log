@@ -66,7 +66,7 @@ Log::getInstance()->registerHandlers();
 
 ## License
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT), see the [LICENSE](https://github.com/jidaikobo-shibata/log/tree/main?tab=MIT-1-ov-file) file for details
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT), see the [LICENSE file](https://github.com/jidaikobo-shibata/log/tree/main?tab=MIT-1-ov-file) for details
 
 ## Author
 
