@@ -29,7 +29,7 @@ composer require jidaikobo/log
 Initialize the logger with a custom log file path and maximum file size (optional):
 
 ```php
-use jidaikobo\Log;
+use Jidaikobo\Log;
 Log::init('/path/to/log.log', 5 * 1024 * 1024); // 5MB max file size
 ```
 
@@ -66,7 +66,7 @@ Log::getInstance()->registerHandlers();
 
 ## License
 
-This project is licensed under the [Unlicense](https://unlicense.org/).
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT), see the [LICENSE](https://github.com/jidaikobo-shibata/log/tree/main?tab=MIT-1-ov-file) file for details
 
 ## Author
 
