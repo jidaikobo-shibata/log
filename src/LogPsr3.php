@@ -11,7 +11,7 @@
  * @category Utility
  * @package  jidaikobo/log
  * @author   jidaikobo-shibata <shibata@jidaikobo.com>
- * @license  Unlicense <https://unlicense.org/>
+ * @license  MIT License <https://opensource.org/licenses/MIT>
  * @link     https://github.com/jidaikobo-shibata/log
  */
 
