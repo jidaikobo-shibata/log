@@ -8,6 +8,7 @@
  * This class adheres to PSR-1 and PSR-12 coding standards and implements
  * PSR-3 (Logger Interface) for compatibility with PSR-3 consumers.
  *
+ * @method static void write(string $message)
  * @category Utility
  * @package  jidaikobo/log
  * @author   jidaikobo-shibata <shibata@jidaikobo.com>
@@ -102,7 +103,7 @@ class LogPsr3 implements LoggerInterface
      * Write a message to the log file.
      *
      * @param string|array<string|int, string>|object|int|bool|null $message The message to log.
-     * @param string                                $level   The log level.
+     * @param string $level The log level.
      *
      * @return void
      */
