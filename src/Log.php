@@ -8,6 +8,7 @@
  * This class allows developers to use logging functionality via static
  * methods while maintaining the flexibility of the LogPsr3 instance-based design.
  *
+ * @method   static void write(string $message)
  * @category Utility
  * @package  jidaikobo/log
  * @author   jidaikobo-shibata <shibata@jidaikobo.com>

@@ -8,7 +8,6 @@
  * This class adheres to PSR-1 and PSR-12 coding standards and implements
  * PSR-3 (Logger Interface) for compatibility with PSR-3 consumers.
  *
- * @method static void write(string $message)
  * @category Utility
  * @package  jidaikobo/log
  * @author   jidaikobo-shibata <shibata@jidaikobo.com>
