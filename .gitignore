@@ -4,4 +4,4 @@
 /public/
 phpcs.xml
 .phpunit.result.cache
-tests/*.log
+tests/*.log.*
