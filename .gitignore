@@ -3,3 +3,5 @@
 /logs/
 /public/
 phpcs.xml
+.phpunit.result.cache
+tests/*.log
