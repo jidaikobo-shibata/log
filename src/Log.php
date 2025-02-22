@@ -89,4 +89,17 @@ class Log
 
         return $instance->$method(...$args);
     }
+
+    /**
+     * Add static method for phpstan
+     *
+     * @param mixed $message The message to log.
+     * @param string $level The log level.
+     *
+     * @return void
+     */
+    public static function write(mixed $message, string $level = 'INFO'): void
+    {
+        self::getInstance()->write($message, $level);
+    }
 }

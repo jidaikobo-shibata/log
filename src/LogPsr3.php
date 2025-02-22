@@ -101,12 +101,12 @@ class LogPsr3 implements LoggerInterface
     /**
      * Write a message to the log file.
      *
-     * @param string|array<string|int, string>|object|int|bool|null $message The message to log.
-     * @param string $level The log level.
+     * @param mixed  $message The message to log.
+     * @param string $level   The log level.
      *
      * @return void
      */
-    public function write(string|array|object|int|bool|null $message, string $level = 'INFO'): void
+    public function write(mixed $message, string $level = 'INFO'): void
     {
         $this->rotateLogFile();
 
@@ -116,36 +116,25 @@ class LogPsr3 implements LoggerInterface
             mkdir($logDir, 0777, true);
         }
 
-        // Determine the type of $message
-        $type = gettype($message);
-
-        // Format the message based on its type
-        if ($message === null) {
-            $formattedMessage = 'null'; // Handle null
-        } elseif (is_bool($message)) {
-            $formattedMessage = $message ? 'true' : 'false'; // Handle boolean
-        } elseif (is_int($message)) {
-            $formattedMessage = (string) $message; // Handle integer
-        } elseif (is_array($message)) {
-            $formattedMessage = var_export($message, true); // Handle array
-        } elseif (is_object($message)) {
-            // Handle object
-            $formattedMessage = method_exists($message, '__toString')
+        // Format the message
+        $formattedMessage = match (true) {
+            $message === null => 'null',
+            is_bool($message) => $message ? 'true' : 'false',
+            is_int($message) => (string) $message,
+            is_array($message) => var_export($message, true),
+            is_object($message) => method_exists($message, '__toString')
                 ? (string) $message
-                : json_encode($message, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-            $type = get_class($message); // Use the class name for objects
-        } else {
-            $formattedMessage = (string)$message; // Handle string or other types
-        }
+                : json_encode($message, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+            default => (string) $message
+        };
+
+        // Objectの場合はクラス名を記録
+        $type = is_object($message) ? get_class($message) : gettype($message);
 
         $timestamp = date('Y-m-d H:i:s');
-        if ($level === 'INFO') {
-            $logEntry = "[$timestamp] [$level] [$type] $formattedMessage" . PHP_EOL;
-        } else {
-            $logEntry = "[$timestamp] [$level] $formattedMessage" . PHP_EOL;
-        }
+        $logEntry = "[$timestamp] [$level] [$type] $formattedMessage" . PHP_EOL;
 
-        file_put_contents($this->logFile, $logEntry, FILE_APPEND);
+        file_put_contents($this->logFile, $logEntry, FILE_APPEND | LOCK_EX);
     }
 
     /**
