@@ -26,11 +26,14 @@ jobs:
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
         continue-on-error: true
 
-      - name: Commit coverage report
-        run: |
-          git config --local user.name "GitHub Actions"
-          git config --local user.email "actions@github.com"
-          git add coverage.xml
-          git commit -m "Add coverage report"
-          git push
-        continue-on-error: true
+      - name: Upload coverage.xml as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+
+      - name: Download Scrutinizer Ocular
+        run: wget https://scrutinizer-ci.com/ocular.phar
+
+      - name: Upload coverage report to Scrutinizer
+        run: php ocular.phar code-coverage:upload --format=php-clover coverage.xml
