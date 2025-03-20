@@ -6,6 +6,7 @@ build:
                     - 'true'
             tests:
                 override:
+                    - export XDEBUG_MODE=coverage
                     - ./vendor/bin/phpunit --coverage-clover=coverage.xml
                     - php-scrutinizer-run
 
@@ -13,11 +14,13 @@ build:
         timezone: 'Asia/Tokyo'
         php:
             version: "8.1"
+        variables:
+            XDEBUG_MODE: "coverage"
 
     tests:
         override:
             -
-                command: './vendor/bin/phpunit --coverage-clover=coverage.xml'
+                command: 'export XDEBUG_MODE=coverage && ./vendor/bin/phpunit --coverage-clover=coverage.xml'
                 coverage:
                     file: 'coverage.xml'
                     format: 'clover'
