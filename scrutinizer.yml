@@ -8,8 +8,13 @@ build:
                 override:
                     - php-scrutinizer-run
                     -
-                        command: phpcs-run
+                        command: "phpcs-run ./src"
                         use_website_config: false
+        static-analysis:
+            tests:
+                override:
+                    command: "vendor/bin/phpcs ./src"
+
     environment:
         timezone: 'Asia/Tokyo'
         php:
@@ -27,11 +32,14 @@ build:
 tools:
     php_code_coverage: true
 checks:
-    php: true
+    php:
+        code_sniffer: true
 coding_style:
     php:
         spaces:
             around_operators:
                 bitwise: false
                 concatenation: true
-filter: {  }
+filter:
+    paths:
+        - "src/"
