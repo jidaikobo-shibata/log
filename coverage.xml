@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1742468685">
-  <project timestamp="1742468685">
+<coverage generated="1742469107">
+  <project timestamp="1742469107">
     <file name="/home/runner/work/log/log/src/Log.php">
       <class name="Jidaikobo\Log" namespace="global">
         <metrics complexity="9" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="0" elements="26" coveredelements="0"/>
