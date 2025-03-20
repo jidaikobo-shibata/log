@@ -35,5 +35,8 @@ jobs:
       - name: Download Scrutinizer Ocular
         run: wget https://scrutinizer-ci.com/ocular.phar
 
+      - name: Make ocular.phar executable
+        run: chmod +x ocular.phar
+
       - name: Upload coverage report to Scrutinizer
         run: php ocular.phar code-coverage:upload --format=php-clover coverage.xml
