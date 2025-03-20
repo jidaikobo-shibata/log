@@ -31,15 +31,15 @@ build:
 
 tools:
     php_code_coverage: true
-checks:
-    php:
-        code_sniffer: true
+    php_code_sniffer: true
+
 coding_style:
     php:
         spaces:
             around_operators:
                 bitwise: false
                 concatenation: true
+
 filter:
     paths:
         - "src/"
