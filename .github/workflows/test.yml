@@ -37,4 +37,4 @@ jobs:
           curl -X POST --data-binary @coverage.xml \
           -H "Authorization: Bearer ${{ secrets.SCRUTINIZER_API_KEY }}" \
           -H "Content-Type: text/xml" \
-          "https://scrutinizer-ci.com/api/repositories/g/jidaikobo-shibata/log/coverage"
+          "https://scrutinizer-ci.com/api/repositories/jidaikobo-shibata/log/coverage"
