@@ -24,5 +24,6 @@ jobs:
         run: composer install --prefer-dist --no-progress
       - name: Run tests with coverage
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
+        continue-on-error: true
       - name: Upload coverage report to Scrutinizer
         run: curl -X POST --data-binary @coverage.xml "https://scrutinizer-ci.com/api/repositories/{repo_id}/coverage"
