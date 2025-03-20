@@ -6,6 +6,7 @@ build:
                     - 'true'
             tests:
                 override:
+                    - ./vendor/bin/phpunit --coverage-clover=coverage.xml
                     - php-scrutinizer-run
 
     environment:
