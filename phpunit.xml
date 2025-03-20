@@ -5,9 +5,7 @@
             <directory>tests</directory>
         </testsuite>
     </testsuites>
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
-    </coverage>
+    <logging>
+        <log type="coverage-clover" target="coverage.xml"/>
+    </logging>
 </phpunit>
