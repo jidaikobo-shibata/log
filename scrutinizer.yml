@@ -1,0 +1,37 @@
+build:
+    nodes:
+        analysis:
+            project_setup:
+                override:
+                    - 'true'
+            tests:
+                override:
+                    - php-scrutinizer-run
+                    -
+                        command: phpcs-run
+                        use_website_config: false
+    environment:
+        timezone: 'Asia/Tokyo'
+        php:
+            version: "8.1"
+
+    tests:
+        override:
+            -
+                command: './vendor/bin/phpunit --coverage-clover=.coverage.xml'
+                coverage:
+                    file: '.coverage.xml'
+                    format: 'clover'
+                idle_timeout: 600
+
+tools:
+    php_code_coverage: true
+checks:
+    php: true
+coding_style:
+    php:
+        spaces:
+            around_operators:
+                bitwise: false
+                concatenation: true
+filter: {  }
